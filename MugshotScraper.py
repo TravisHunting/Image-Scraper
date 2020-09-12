@@ -80,10 +80,6 @@ def scrape(url):
 	next_page = urlprefix + mydivs[0].get('href')
 	current_page = url
 
-	# abs_file_path = os.path.join(script_dir,"/Mugshots/"+str(counter)+".jpg")
-	print(script_dir)
-	print(type(script_dir))
-
 	for image in images:
 	    with open(script_dir + "/Mugshots/"+str(counter)+".jpg","wb") as f:
 	    #with open(basename(image['src']),"wb") as f:
