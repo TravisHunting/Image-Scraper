@@ -8,7 +8,9 @@ from bs4 import BeautifulSoup
 global script_dir
 script_dir = os.path.dirname(__file__)
 
-
+global urlprefix
+urlprefix = "https://mugshots.com/"
+#mugshots.com "next page" button provides only the extension to the base URL
 global next_page
 global current_page
 global counter 
@@ -60,11 +62,10 @@ def scrape(url):
 	global limit 
 	global pagecounter
 	global pics_downloaded
+	global urlprefix
 
 	pagecounter += 1
 	print("Beginning scrape on page: ",pagecounter)
-
-	urlprefix = "https://mugshots.com/"
 
 	result = requests.get(url)
 
@@ -77,8 +78,10 @@ def scrape(url):
 	#for image in images:
 	    #print(image['src'])
 	mydivs = soup.findAll("a", {"class": "next page"})
+	#Finds the data to append to "mugshots.com" to reach the next page
 	next_page = urlprefix + mydivs[0].get('href')
 	current_page = url
+
 
 	for image in images:
 	    with open(script_dir + "/Mugshots/"+str(counter)+".jpg","wb") as f:
@@ -87,6 +90,7 @@ def scrape(url):
 	        counter += 1
 	        #print("Counter = ",counter)
 	        pics_downloaded += 1
+
 	        if pics_downloaded >= limit:
 	        	print("Images Downloaded: ",pics_downloaded)
 	        	print("Creating Checkpoint...")
@@ -96,6 +100,9 @@ def scrape(url):
 	print("Current URL: ",url)
 	print("Next Page: ",next_page)
 	print("Images Downloaded : ",counter)
+
+	print("Creating Checkpoint...")
+	checkpoint()
 
 	scrape(next_page)
 
