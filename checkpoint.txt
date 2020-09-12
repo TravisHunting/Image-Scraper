@@ -1,0 +1,8 @@
+Last Page Scraped:
+https://mugshots.com//?fp=509&from=1500359614
+Next Page to Scrape:
+https://mugshots.com//?fp=510&from=1500277907
+Photo Number
+10160
+How many photos to download
+100
